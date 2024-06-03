@@ -1,0 +1,42 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 0faa9ad372e17a66ec17c8c62465b6380d07ff1e405b2fd97a0821f39e3cf461
+
+name:           parcial-funcional
+version:        0.1.0.0
+author:         PdeP Lunes
+maintainer:     pdep-lunes
+copyright:      2023 pdep-lunes utn-frba
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    readme.md
+
+library
+  exposed-modules:
+      Parcial
+  other-modules:
+      Paths_parcial_funcional
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite parcial-funcional-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_parcial_funcional
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , hspec
+    , parcial-funcional
+  default-language: Haskell2010
