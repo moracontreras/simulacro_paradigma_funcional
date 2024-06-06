@@ -105,3 +105,19 @@ usarJutsus unosNinjas unaMision = foldr ($) unaMision (map aplicarSusJutsus unos
 
 aplicarSusJutsus :: Ninja->Mision->Mision
 aplicarSusJutsus unNinja unaMision= foldr ($) unaMision (jutsu unNinja)     
+
+granGuerraNinja :: Mision
+granGuerraNinja = UnaMision 100000 100 infinitosZetsus (UnaHerramienta "Honor" 1)
+
+infinitosZetsus :: [Ninja]
+infinitosZetsus = map zetsu [1..]
+
+zetsu :: Int-> Ninja
+zetsu unNumero = UnNinja ("Zetsu" ++ show unNumero) [] [] 600
+
+{-ghci> esDesafiante infinitosZetsus granGuerraNinja
+Interrupted.
+ghci> esCopada granGuerraNinja
+False
+ghci> fuerzaDeUnCentenar granGuerraNinja
+UnaMision {cantidadNinjas = 100000, rangoRecomendable = 100, enemigos = Interrupted.-}
