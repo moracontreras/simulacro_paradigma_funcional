@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Eta reduce" #-}
 import Text.Show.Functions ()
-import Control.Monad (ap)
+
 
 data Chico = UnChico{
     nombre :: String,
@@ -83,13 +83,18 @@ noEsTimmy:: Chico->Bool
 noEsTimmy (UnChico nombre edad habilidades deseos) = nombre /= "timmy"
 
 quienConquistaA:: Chica->[Chico]->Chico
-quienConquistaA (UnaChica _ condicion) unosPretendientes = filtrarChicos condicion $unosPretendientes
+quienConquistaA (UnaChica _ condicion) unosPretendientes 
+    | (length (filtrarChicos condicion unosPretendientes) )== 0 = devolverUltimo unosPretendientes
+    | otherwise = devolverPrimero condicion unosPretendientes
 
---seEncontraronChicos :: [Chico]->Bool
---seEncontraronChicos []= 
+filtrarChicos :: (Chico ->Bool)->[Chico]->[Chico]
+filtrarChicos condicion unosChicos = filter condicion unosChicos
 
-filtrarChicos :: (Chico ->Bool)->[Chico]->Chico
-filtrarChicos condicion unosChicos = head.filter condicion $unosChicos
+devolverPrimero :: (Chico->Bool)->[Chico]->Chico
+devolverPrimero condicion unosChicos = head (filtrarChicos condicion unosChicos)
+
+devolverUltimo :: [Chico]->Chico
+devolverUltimo unosChicos = last unosChicos
 
 infraccionesDeDaRules :: [Chico]->[Chico]
 infraccionesDeDaRules unosChicos = filter noTieneHabilidadesProhibidas unosChicos

@@ -63,7 +63,7 @@ aplicarTransformaciones :: Animal->Experimento->Animal
 aplicarTransformaciones unAnimal unExperimento = foldr (\transformacion animal-> transformacion animal) unAnimal (transformaciones unExperimento)
 
 raton :: Animal
-raton = UnAnimal 17 "raton" ["hola" ++ show [1 ..]]
+raton = UnAnimal 17 "raton" ["hablar"]
 
 experimentoPrueba :: Experimento
 experimentoPrueba = UnExperimento [pinkificar,inteligenciaSuperior 10,superPoderes] esAntropomorfico
@@ -85,6 +85,13 @@ reporte2 unosAnimales unasHabilidades unExperimento = map especie.cumplenHabilid
 
 reporte3 :: [Animal]->[String]->Experimento->[Int]
 reporte3 unosAnimales unasHabilidades unExperimento = map (length.habilidades).cumplenHabilidadesPostExperimento unasHabilidades unExperimento $unosAnimales
+
+jirafa :: Animal
+jirafa = UnAnimal{
+    coeficiente = 500,
+    especie = "jirafa",
+    habilidades = ["hacer agua", "hacer pii", "hacer mee"]
+}
 
 --Si aparece un animal con infinitas capacidades, se pueden aplicar todas las transformaciones
 --porque pinkificar las va a cambiar por lista vacia, inteligenciaSuperior cambia el coeficiente 
