@@ -121,3 +121,15 @@ ladronEjemplo = UnLadron "mati" [ganzúaGancho,ganzúaRastrillo] []
 {-atraco infinitosCofres ladronEjemplo cuenta con una lista infinita y la 
 expresion nunca termina. 
 -}
+
+{-robarCofre2 :: Cofre->Ladron->Ladron
+robarCofre2 unCofre unLadron 
+    | abrirCofre unLadron unCofre == [] = 
+    | otherwise = modificarHerramientas (const []) unLadron
+
+agregarTesoro2 :: Cofre->Ladron->Ladron
+agregarTesoro2 unCofre unLadron = modificarTesoros (tesoro unCofre :) unLadron
+
+abrirCofre :: Cofre->Ladron->Ladron
+abrirCofre (UnLadron _ herramientas _) ([],tesoro) = modificarHerramientas (const resto).agregarTesoro2 tesoro ([],tesoro) $ unLadron
+abrirCofre (UnLadron nombre (primera:segunda:resto) tesoros) (cerradura,_) = flip abrirCofre (UnLadron nombre (segunda:resto) tesoros).foldr ($) cerradura (primera:[])-}
