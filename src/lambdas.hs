@@ -122,14 +122,14 @@ ladronEjemplo = UnLadron "mati" [ganzúaGancho,ganzúaRastrillo] []
 expresion nunca termina. 
 -}
 
-{-robarCofre2 :: Cofre->Ladron->Ladron
-robarCofre2 unCofre unLadron 
-    | abrirCofre unLadron unCofre == [] = 
-    | otherwise = modificarHerramientas (const []) unLadron
+robarCofre2 ::Cofre->Ladron->Ladron
+robarCofre2 unCofre unLadron = consumirHerramientas2 (cerradura unCofre) unLadron
 
-agregarTesoro2 :: Cofre->Ladron->Ladron
-agregarTesoro2 unCofre unLadron = modificarTesoros (tesoro unCofre :) unLadron
+consumirHerramientas2 :: Cerradura->Ladron->Ladron
+consumirHerramientas2 unaCerradura (UnLadron nombre [] tesoros) = eliminarHerramientas2 (UnLadron nombre [] tesoros)
+consumirHerramientas2 unaCerradura (UnLadron nombre (herramienta:resto) tesoros) 
+    | (== []).herramienta $ unaCerradura = (UnLadron nombre resto tesoros)
+    | otherwise = flip consumirHerramientas2 (UnLadron nombre resto tesoros).herramienta $ unaCerradura
 
-abrirCofre :: Cofre->Ladron->Ladron
-abrirCofre (UnLadron _ herramientas _) ([],tesoro) = modificarHerramientas (const resto).agregarTesoro2 tesoro ([],tesoro) $ unLadron
-abrirCofre (UnLadron nombre (primera:segunda:resto) tesoros) (cerradura,_) = flip abrirCofre (UnLadron nombre (segunda:resto) tesoros).foldr ($) cerradura (primera:[])-}
+eliminarHerramientas2 :: Ladron->Ladron
+eliminarHerramientas2 unLadron = modificarHerramientas (const []) unLadron
